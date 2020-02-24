@@ -2,6 +2,18 @@ package main
 import "fmt"
 
 func main() {
+	fmt.Println()
+	fmt.Println("____if____")
+	for i := 0; i < 9; i++ {
+		if i % 2 == 0 {
+			fmt.Println(i, "000")
+		}else{
+			fmt.Println(i, "111")
+		}
+	}
+
+	fmt.Println()
+
 	// 1)..for..
 	fmt.Println("____FOR____")
 	i := 1
@@ -18,16 +30,9 @@ func main() {
 	}
 
 	fmt.Println()
-	fmt.Println("____if____")
-	for i := 0; i < 9; i++ {
-		if i % 2 == 0 {
-			fmt.Println(i, "000")
-		}else{
-			fmt.Println(i, "111")
-		}
-	}
 
-	fmt.Println()
+	//---switch----
+	
 	fmt.Println("____switch____")
 	fmt.Println()
 
