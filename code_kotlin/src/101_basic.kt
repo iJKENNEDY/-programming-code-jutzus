@@ -59,4 +59,54 @@ fun main(args: Array<String>){
     println(aToz)
     println(oneToNine)
 
+    //..Loops
+
+
+    val list = listOf(1,2,3,4)
+    for (k in list){
+        println(k)
+    }
+
+    println()
+    val list2 = listOf(22,34,54,665,76,21,3,5,6,7)
+    for (l in list2){
+        println(l)
+    }
+
+    println()
+
+    val setValues = setOf(23,3,342,54,2765,6544,32)
+    for (aa in setValues){
+        println(aa)
+    }
+
+    val oneToTen2 = 1..10
+    for (k in oneToTen2){
+        println(k)
+    }
+
+    val setValues4 = setOf(23,432,44,543,76,75,23,34,6)
+    for (a3 in setValues4){
+        print(a3)
+        print("-")
+    }
+
+    val  oneToTwenty = 1..20
+    for (l2 in oneToTwenty){
+        println(l2)
+    }
+
+    val string = "maquina enigma"
+    for (char in string){
+        println(char)
+    }
+
+    for (index in string.indices){
+        println("Element $index is ${string[index]}")
+    }
+
+    val parrafo = "codigo-enigma"
+    for (parr in parrafo.indices){
+        println("elements $parr is ${parrafo[parr]}")
+    }
 }
