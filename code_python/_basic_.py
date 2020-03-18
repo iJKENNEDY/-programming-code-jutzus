@@ -141,7 +141,7 @@ cookies_['sabor'][:]
 cookies_['marca'].remove('')
 
 
-# In[120]:
+# In[ ]:
 
 
 #--- sets____
@@ -183,4 +183,257 @@ animals.update('hanster', 'elefante', 'bird')
 
 #.. get a sorted list of unique elements from a list
 sorted(set([9,0,2,1,0]))
+
+
+# In[ ]:
+
+
+#_____conditional_statements____
+x = 54
+if x > 0:
+    print('positive')
+elif x == 0:
+    print('zero')
+else:
+    print('negative')
+
+#..single-line
+if x > 0: print('positive')
+#ternario-operator
+'positive' if x > 0 else 'zero or negative'    
+
+
+# In[ ]:
+
+
+#___loops____
+#range returns a list of integers
+#range(0, 3) , range(4), range(0, 4, 2)
+languageCoders = ['jscript','scala','kotlin','clojure','haskell']
+for i in range(len(languageCoders)):
+    print(languageCoders[i].upper())
+
+for x in range(2**4):
+    pass
+
+#...iterate through two things at once (using tuple unpacking)
+cellphone = {'marca':'huawei', 'modelo':'mate pro', 'color':'azul','version s.o.':9}
+print("....cellphone....")
+for key, value in cellphone.items():
+    print(key, value)
+
+for lang_ in range(len(languageCoders)):
+    if languageCoders[lang_] == 'scala':
+        print("language programming {}".format(languageCoders[lang_]))
+        break
+    else:
+        print('No language for coders')
+
+# while loop
+count = 0
+while count < 5:
+    print('go print 5 times {}'.format(count))
+    count += 1
+
+
+# In[ ]:
+
+
+#___exceptions_handling___
+dct = dict(a=[12,43], b=[34,99])
+key = 'c'
+try:
+    dct[key]
+except:
+    print("key %s is missing. Add it with empty value" % key)
+    dct['c'] = []
+
+print(dct)
+
+
+# In[ ]:
+
+
+#___functions___
+def print_text():
+    print('enigma-code')
+
+print_text()
+
+def print_this(x):
+    print(x, "......")
+
+print_this(2333)
+
+def square_this(x):
+    return x ** 2
+
+power_2 = square_this(3)
+print(power_2)
+
+def power_this(x, power=2):
+    return x ** power
+
+power3 = power_this(5)
+print(power3)
+
+def stub():
+    pass
+
+def min_max(nums):
+    return min(nums), max(nums)
+
+nums = [23, 54, 95, 5, 43, 90,1]
+min_max_num = min_max(nums)
+print(min_max_num)
+
+min_num, max_num = min_max(nums)
+min_num
+max_num
+
+
+# In[158]:
+
+
+#___list_comprehensions_iterators
+nums = [11, 22,33,44,55]
+cubes = []
+for num in nums:
+    cubes.append(num ** 3)
+
+cubes
+
+cubes2 = [num ** 3 for num in nums]
+cubes2
+
+# for loop to create a list of cubes of even numbers
+cubes_five_of_even = []
+for num in nums:
+    if num % 2 == 0:
+        cubes_five_of_even.append(num **4)
+    else:
+        cubes_five_of_even.append(num **3)
+five_of_even
+
+five_of_even_2 = [num ** 4  if num % 2 == 0 else num ** 3 for num in nums ]
+five_of_even_2
+
+
+#__for loop to flatten a 2d-matrix
+matrix = [[1,2], [3,4]]
+items = []
+
+for row in matrix:
+    for item in row:
+        items.append(item)
+        
+items
+
+#==> equivalent list comprehension
+items2 = [item for row in matrix
+              for item in row]
+items2
+
+#==> set comprehension
+fruits = ['graphes', 'cherry','apple','banana']
+unique_lengths = {len(fruit) for fruit in fruits}
+unique_lengths
+
+#===> dictionary comphension
+fruit_lengths = {fruit:len(fruit) for fruit in fruits}
+fruit_lengths
+
+
+# In[159]:
+
+
+#__regular_expression__
+import re
+regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
+strings = ["abcsub-33_ses-01_mod-mri", "defsub-04_ses-01_mod-mri","ghisub-055_ses-02_mod-ctscan"]
+print([regex.findall(s)[0] for s in strings])
+
+
+# In[173]:
+
+
+#__system_programming__
+
+import os
+import tempfile
+
+cwd = os.getcwd()
+print(cwd)
+
+os.chdir(cwd)
+
+#temporary directory
+tmpdir = tempfile.gettempdir()
+
+#..join paths
+mytmpdir = os.path.join(tmpdir, "foobar")
+os.listdir(tmpdir)
+
+#..create a directory
+if not os.path.exists(mytmpdir):
+    os.mkdir(mytmpdir)
+
+os.makedirs(os.path.join(tmpdir, "foobar", "plop","toto"), exist_ok=True)
+
+#..file_i/o
+filename = os.path.join(mytmpdir, "myfile.txt")
+print(filename)
+
+#write
+lines = ["Enigma code 3000", "programming in python enigma"]
+
+##..write line by line
+fd = open(filename, "w")
+fd.write(lines[0] + "\n")
+fd.write(lines[1] + "\n")
+fd.close()
+
+## use a context manager to automatically close your file
+with open(filename, 'w') as f:
+    for line in lines:
+        f.write(line + '\n')
+        
+#read 
+## read one line at a time
+f = open(filename, "r")
+#f.readline()
+f.readlines()
+f.close()
+
+#-------
+f2 = open(filename,'r')
+[line for line in f2]
+f2.close()
+
+##...
+with open(filename, 'r') as f:
+    lines=[line for line in f]
+
+
+# In[174]:
+
+
+#... multiprocessing and multithreading
+import time
+import threading
+
+def list_append(count, sign=1, out_list=None):
+    if out_list is None:
+        out_list = list()
+    for i in range(count):
+        out_list.append(sign * i)
+        sum(out_list)
+    return out_list
+
+size = 10000 # number of numbers to add
+
+out_list = list()
+thread1 = threading3
+
+
 
