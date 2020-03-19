@@ -292,7 +292,7 @@ min_num
 max_num
 
 
-# In[158]:
+# In[ ]:
 
 
 #___list_comprehensions_iterators
@@ -344,7 +344,7 @@ fruit_lengths = {fruit:len(fruit) for fruit in fruits}
 fruit_lengths
 
 
-# In[159]:
+# In[ ]:
 
 
 #__regular_expression__
@@ -354,7 +354,7 @@ strings = ["abcsub-33_ses-01_mod-mri", "defsub-04_ses-01_mod-mri","ghisub-055_se
 print([regex.findall(s)[0] for s in strings])
 
 
-# In[173]:
+# In[ ]:
 
 
 #__system_programming__
@@ -415,7 +415,7 @@ with open(filename, 'r') as f:
     lines=[line for line in f]
 
 
-# In[174]:
+# In[ ]:
 
 
 #... multiprocessing and multithreading
@@ -433,7 +433,543 @@ def list_append(count, sign=1, out_list=None):
 size = 10000 # number of numbers to add
 
 out_list = list()
-thread1 = threading3
+thread1 = threading.Thread(target=list_append, args=(size, 1, out_list, ))
+thread2 = threading.Thread(target=list_append, args=(size, -1, out_list, ))
+
+startime = time.time()
+# will execute both in parallel
+thread1.start()
+thread2.start()
+
+# joins threads back to the parent process
+thread1.join()
+thread2.join()
+
+print("Threading ellapsed time", time.time() - startime)
+print(out_list[:10])
 
 
+# In[ ]:
 
+
+#_multiprocessing
+import multiprocessing
+
+# sharing requires specific mecanism
+out_list1 = multiprocessing.Manager().list()
+p1 = multiprocessing.Process(target=list_append, args=(size, 1,None))
+out_list2 = multiprocessing.Manager().list()
+p2 = multiprocessing.Process(target=list_append, args=(size, -1,None))
+
+startime = time.time()
+p1.start()
+p2.start()
+p1.join()
+p2.join()
+print("Multiprocessing ellapsed time ", time.time() - startime)
+
+
+# In[ ]:
+
+
+#:.....Object_Oriented_Programming (OPP):
+import math
+
+class Shape2D:
+    def area(self):
+        raise NotImplementedError()
+    
+# __init__ is a special method called the constructor
+
+#Inheritance + encapsulation
+class Square(Shape2D):
+    def __init__(self, width):
+        self.width = width
+        
+    def area(self):
+        return self.width ** 2
+
+class Disk(Shape2D):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return math.pi * self.radius ** 2
+
+shapes = [Square(2), Disk(3)]
+
+# polymorphism
+print([s.area() for s in shapes])
+
+s = Shape2D()
+try:
+    s.area()
+except NotImplementedError as e:
+    print("NotImplementedError")
+
+
+# In[ ]:
+
+
+#___ NUMPY_:arrays_and_matrices
+from __future__ import print_function
+import numpy as np
+
+#__ create arrays ___
+data1 = [1, 2, 3, 4, 5]
+arr1 = np.array(data1)
+print("array = ", data1)
+print("array(np) = ", arr1)
+
+data2 = [range(1, 5), range(5, 9)] #list of lists
+arr2 = np.array(data2)
+print("array2(list of lists): ", arr2)
+print ("convert arr->list ", arr2.tolist()) #convert array back to list
+
+int_array = np.arange(5)
+float_array = int_array.astype(float)
+print("...", float_array)
+
+#.. examining arrays....
+arr1.dtype # int32
+arr2.dtype # int32
+arr2.ndim  # 2
+arr2.shape # (2, 4)
+arr2.size  # 8
+len(arr2)  # 2
+
+#__ reshaping ...
+arr = np.arange(10, dtype=float).reshape((2, 5))
+print("reshaping_: ", arr.shape)
+print(arr.reshape(5, 2))
+
+a = np.array([0, 1])
+a_col = a[:, np.newaxis]
+print(a_col)
+# or
+a_col = a[:, None]
+print(a_col.T)
+
+arr_flt = arr.flatten()
+arr_flt[0] = 43
+print(arr_flt)
+print(arr)
+
+#... stack arrays...
+a = np.array([0, 1])
+b = np.array([2, 3])
+ab = np.stack((a, b)).T
+print("ab: ", ab)
+#.. or ..
+np.hstack((a[:, None], b[:, None]))
+
+
+# In[ ]:
+
+
+#..selection..
+arr = np.arange(10, dtype=float).reshape((2, 5))
+#print(arr)
+arr[0]
+arr[0, 3]
+arr[0][3]
+
+#_.slicing...
+arr[0, :]
+arr[:, 0]
+arr[:, :2]
+arr[:, 2:]
+arr2 = arr[:, 1:4]
+#print(arr2)
+
+#.......
+arr2[0, 0] = 33
+#print("arr2: ", arr2 )
+#print("arr: ",arr)
+#print("arr__: " ,arr[0, ::-1])
+
+#_. fancy_indexing...
+arr2 = arr[:, [1,2,3]]
+#print("arr2::_ ", arr2)
+arr2[0,0] = 44
+#print(":: ", arr2)
+#print(":::: ", arr)
+
+arr2 = arr[ arr > 5]
+#print("arr:>: ", arr2)
+arr2[0] = 44
+#print("arr_modify:: ", arr2)
+
+#__boolena arrays indexing continues
+names = np.array(['Bob', 'Joe','Will','Bob'])
+names == 'Bob'
+names[names != 'Bob']
+(names == 'Bob') |(names== 'Will')
+names[names != 'Bob'] = 'Joe'
+np.unique(names)
+
+#.. vectorized operations
+nums = np.arange(5)
+nums * 10
+nums = np.sqrt(nums)
+np.ceil(nums)
+np.isnan(nums)
+nums + np.arange(5)
+np.maximum(nums, np.array([1, -2, 3, -4, 5]))
+
+# compute euclidean distance between 2 vectors
+vec1 = np.random.randn(10)
+vec2 = np.random.randn(10)
+dist = np.sqrt(np.sum((vec1 - vec2) ** 2))
+print(dist)
+
+# math and stats
+rnd = np.random.randn(4, 2)
+rnd.mean()
+rnd.std()
+rnd.argmin()
+rnd.sum()
+rnd.sum(axis=0)
+rnd.sum(axis=1)
+
+#.. methods for boolean arrays
+(rnd > 0).sum()
+(rnd > 0).any()
+(rnd > 0).all()
+
+# random numbers
+np.random.seed(12234)
+np.random.rand(2, 3)
+np.random.randn(10)
+np.random.randint(0, 2, 10)
+
+
+# In[ ]:
+
+
+#..BROADCASTING::__rules..
+a = np.array([[0, 0, 0],
+             [10, 10, 10],
+             [20, 20, 20],
+             [30, 30, 30]])
+b = np.array([0, 1, 2])
+print(a + b)
+ 
+
+
+# In[ ]:
+
+
+#..PANDAS....
+from __future__ import print_function
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+#... create DataFrame
+columns = ['name', 'age', 'gender', 'job']
+
+user1 = pd.DataFrame([['alice', 19, "F", "student"],
+                     ['john', 26, "M", "manager"]],
+                    columns = columns)
+user2 = pd.DataFrame([['eric', 22, 'M', "student"],
+                     ['paul', 58, "F", "manager"]],
+                    columns = columns)
+user3 = pd.DataFrame(dict(name=['peter','julie'],
+                         age=[33,44], gender =['M', 'F'],
+                         job=['engineer', 'scientist']))
+#print(user1)
+print()
+#print(user3)
+#user1
+
+#...combining dataframes
+#__concatenate dataFrame
+users = pd.concat([user1, user2, user3])
+#print(users)
+print()
+#user1.append(user2)
+
+#.. join dataFrame...
+user4 = pd.DataFrame(dict(name=['alice', 'john', 'eric', 'julie'],
+                         height = [165, 180, 142, 172]))
+#print(user4)
+
+merge_inter = pd.merge(users, user4, on="name")
+#print(merge_inter)
+
+#print()
+
+users = pd.merge(users, user4, on="name", how='outer')
+#print(users)
+
+#__reshaping by pivoting__
+staked = pd.melt(users, id_vars="name", var_name="variable", value_name="value")
+#print(staked)
+
+#print()
+
+#print(staked.pivot(index='name', columns='variable', values='value'))
+
+#__summarizing
+users
+#type(users)
+users.head()
+users.tail()
+
+users.index
+users.columns
+users.dtypes
+users.shape
+users.values
+users.info()
+
+
+#.. columns_selection__
+users['gender']
+#type(users['gender'])
+users.gender
+
+#select multiple colums
+#users[['age', 'gender']]
+#my_cols =['age','gender']
+users[my_cols]
+type(users[my_cols])
+
+
+# In[ ]:
+
+
+#_ rows_selection_
+df = users.copy()
+df.iloc[0]
+df.iloc[0,0]
+df.iloc[0,0] = 55
+
+for i in range(users.shape[0]):
+    row = df.iloc[i]
+    row.age *= 100
+
+#print(df)
+
+print()
+
+df.ix[0]
+df.ix[0,"age"]
+df.ix[0,"age"] = 54
+
+for i in range(df.shape[0]):
+    df.ix[i, "age"] *= 10
+
+print(df)
+
+
+# In[ ]:
+
+
+#...rows_selection(filtering)...
+users[users.age < 20]
+young_bool = users.age < 20
+young = users[young_bool]
+users[users.age < 20].job
+print(young)
+
+users[users.age < 20][['age', 'job']]
+users[(users.age > 20) & (users.gender == 'M')]
+users[users.job.isin(['student', 'engineer'])]
+
+#__sorting___
+df = users.copy()
+
+df.age.sort_values()
+df.sort_values(by='age')
+df.sort_values(by='age', ascending=False)
+df.sort_values(by=['job','age'])
+df.sort_values(by=['job','age'], inplace=True)
+
+#__descriptive statistics
+print(df.describe())
+print()
+print(df.describe(include='all'))
+print()
+print(df.describe(include=['object']))
+
+
+# In[ ]:
+
+
+#.. statistics per group
+print(df.groupby("job").mean())
+print("......................")
+print(df.groupby("job")["age"].mean())
+print("----------------------")
+print(df.groupby("job").describe(include='all'))
+print(".......................")
+for grp, data in df.groupby("job"):
+    print(grp, data)
+
+
+# In[ ]:
+
+
+#__Quality_check___
+#..remove_duplicate_date
+df = users.append(df.iloc[0], ignore_index=True)
+
+#print(df.duplicated()) #series of booleans
+df.duplicated().sum()
+df[df.duplicated()]
+df.age.duplicated()
+df.duplicated(['age','gender']).sum()
+df = df.drop_duplicates()
+
+#..missing_data
+df = users.copy()
+df.describe(include='all')
+
+#..find missing values in a Series
+df.height.isnull()
+df.height.notnull()
+df[df.height.notnull()]
+df.height.isnull().sum()
+
+#find missing values in a DataFrame
+df.isnull()
+df.isnull().sum()
+
+#..drop missing values
+df.dropna()
+df.dropna(how='all')
+
+#..fill in missing values
+df.height.mean()
+df = users.copy()
+df.ix[df.height.isnull(), "height"] = df["height"].mean()
+print(df)
+
+
+# In[ ]:
+
+
+#:__rename_values__
+df = users.copy()
+print(df.columns)
+df.columns = ['age','genre','traveli','nom','taille']
+#df.travail = df.travail.map({'student':'studiant', 'manger':'manager','engineer':'ingeneiur','scientist':'scientific'})
+#assert  df.travail.isnull().sum() == 0
+
+#df['travail'].str.contains("etu|inge")
+#errror
+
+
+# In[ ]:
+
+
+#...dealing_with_outliers....
+size = pd.Series(np.random.normal(loc=175, size=20, scale=10))
+size[:3] += 500
+size
+
+#--based on parametric statistics:: use the mean
+size_outlr_mean = size.copy()
+size_outlr_mean[((size - size.mean()).abs() > 3 * size.std())] = size.mean()
+print(size_outlr_mean.mean())
+
+#...based on non-parametric statistics: use the median
+mad = 1.4826 * np.median(np.abs(size - size.median()))
+size_outlr_mad = size.copy()
+
+size_outlr_mad[((size - size.median()).abs() > 3 * mad)] = size.median()
+print(size_outlr_mad.mean(), size_outlr_mad.median())
+
+
+# In[ ]:
+
+
+#-- File- I/O
+#...csv
+import tempfile, os.path
+tmpdir = tempfile.gettempdir()
+csv_filename = os.path.join(tmpdir, "users.csv")
+users.to_csv(csv_filename, index=False)
+other = pd.read_csv(csv_filename)
+other
+
+
+# In[ ]:
+
+
+#..excel...
+xls_filename = os.path.join(tmpdir, "users.xlsx")
+users.to_excel(xls_filename, sheet_name='users', index=False)
+
+pd.read_excel(xls_filename, sheet_name='users')
+
+# multiple sheets
+with pd.ExcelWriter(xls_filename) as writer:
+    users.to_excel(writer, sheet_name='users', index=False)
+    df.to_excel(writer, sheet_name='salary', index=False)
+    
+pd.read_excel(xls_filename, sheet_name='users')
+pd.read_excel(xls_filename, sheet_name='salary')
+
+
+# In[ ]:
+
+
+#__ sqlite__
+import pandas as pd
+import sqlite3
+
+db_filename = os.path.join(tmpdir, "users.db")
+conn = sqlite3.connect(db_filename)
+#...........
+
+
+# In[ ]:
+
+
+#####____MATPLOTLIB____
+import numpy as np
+import matplotlib.pyplot as plt
+
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+x = np.linspace(0, 10, 50)
+sinus = np.sin(x)
+
+plt.plot(x, sinus)
+plt.show()
+
+print()
+
+plt.plot(x, sinus, "o")
+plt.show()
+
+
+# In[ ]:
+
+
+# rapid multiplot
+cosinus = np.cos(x)
+plt.plot(x, sinus, "-b", x, sinus, "ob", x, cosinus, "-r", x, cosinus, "or")
+plt.xlabel('this is x!')
+plt.ylabel('this is y!')
+plt.title('my first plot')
+plt.show()
+
+
+# In[ ]:
+
+
+# step by step
+plt.plot(x, sinus, label='sinus', color='blue', linestyle='--', linewidth=2)
+plt.plot(x, cosinus, label='cosinus', color='red', linestyle='-', linewidth=2)
+plt.legend()
+plt.show()
+
+
+# In[ ]:
+
+ 
