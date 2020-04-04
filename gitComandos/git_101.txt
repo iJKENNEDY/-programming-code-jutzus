@@ -54,3 +54,9 @@ comandos basicos de git para poder integrar github y gitlab
   git push -u origin --all
   
   git push -u origin --tags
+ 
+::> eliminar rama
+ git branch -d nombre_rama
+
+::> forzar el borrado
+git branch -D nombre_rama
