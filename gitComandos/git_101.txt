@@ -60,3 +60,9 @@ comandos basicos de git para poder integrar github y gitlab
 
 ::> forzar el borrado
 git branch -D nombre_rama
+
+::> ramas contienen cambios que todavia no sea incluido
+git branch --no-merged
+
+::> eliminar una rama en le repositorio remoto
+git push origin --delete nombre_rama
