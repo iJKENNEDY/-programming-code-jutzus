@@ -66,3 +66,6 @@ git branch --no-merged
 
 ::> eliminar una rama en le repositorio remoto
 git push origin --delete nombre_rama
+
+::> git config user.email "emailq@werty.com"
+
