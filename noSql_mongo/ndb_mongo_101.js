@@ -15,10 +15,33 @@
 	roles: ['readWrite','dbAdmin']
 })
 
--- dividir colleciones
+--___dividir colecciones
+--db.collection.insertOne()	===>Inserts a single document into a collection.
+--db.collection.insertMany()===>db.collection.insertMany() inserts multiple documents into a collection.
+--db.collection.insert()===>db.collection.insert() inserts a single document or multiple documents into a collection.
+--Additional Methods for Inserts
+--The following methods can also add new documents to a collection:
+
+--db.collection.update() when used with the upsert: true option.
+--db.collection.updateOne() when used with the upsert: true option.
+--db.collection.updateMany() when used with the upsert: true option.
+--db.collection.findAndModify() when used with the upsert: true option.
+--db.collection.findOneAndUpdate() when used with the upsert: true option.
+--db.collection.findOneAndReplace() when used with the upsert: true option.
+--db.collection.save().
+--db.collection.bulkWrite().
+
 >db.clientes.insert({firstName: 'Lara',
 	lastName: 'Martinez'
 });
+-- insertar varias colecciones:
+db.inventory.insertMany([
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+]);
 
 -- find():: muestra los datos de la colecion
 >db.clientes.find()
