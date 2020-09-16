@@ -1,3 +1,4 @@
+
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +34,7 @@ public class sumaActivity extends AppCompatActivity {
     	}
 
     	///actualilzcion
-    	msumTotalLabel.serText(sumOutput);
+    	msumTotalLabel.setText(sumOutput);
     	mAddButton.setOnClickListener(new View.OnClickListener() {
     		@Override
     		public void onClick(View v){
@@ -47,6 +48,66 @@ public class sumaActivity extends AppCompatActivity {
     			showRootScreen();
     		}
     	});
-    	//pag_15
     }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Log.d(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState()");
+
+        outState.putString(STATE_SUM_OUTPUT, sumOutput);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+
+    private void showRootScreen(){
+        Intent intent= new Intent(this, RaizActivity.class);
+        startActivity(intent);
+    }
+
+    private void addUserNumbers(){
+        String inputA = mNumberAInput.getText().toString();
+        String inputB = mNumberBInput.getText().toString();
+        int numberA = inputA.isEmpty() ? 0: Integer.parseInt(inputA);
+        int numberB = inputB.isEmpty() ? 0: Integer.parseInt(inputB);
+
+        sumOutput = String.format(Locale.getDefault(), "= %d", numberA + numberB);
+        msumTotalLabel.setText(sumOutput);
+    }
+
 }
