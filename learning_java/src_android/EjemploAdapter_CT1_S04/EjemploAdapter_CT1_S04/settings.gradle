@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "EjemploAdapter_CT1_S04"
