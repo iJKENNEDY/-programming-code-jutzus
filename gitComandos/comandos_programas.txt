@@ -1,0 +1,163 @@
+https://www.digitalattackmap.com/#anim=1&color=0&country=ALL&list=0&time=18679&view=map
+https://threatmap.checkpoint.com/
+
+https://repl.it/~
+>----------linux-----------------
+themes-:::
+
+00:35​ - Ranger
+02:26​ - Youtube-dl
+04:02​ - Trash-cli
+04:59​ - Pfetch/Neofetch
+05:55​ - htop
+07:34​ - ncdu
+08:50​ - Speedread
+10:33​ - BONUS
+::::
+::::::::::-- PYTHON --:::::::::::
+virtualenv myenv
+source myenv/bin/activate
+jupyter notebook
+
+----------PGSQL-----------
+
+ sudo -i -u postgres
+ psql
+ \q #para salir del comando
+ #forma 2:
+ sudo -u postgres psql
+
+________________________________
+>-----------windows--------------
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+::::::::::-- PYTHON --:::::::::::
+
+py -m venv env
+@@@-- flask....
+pip install flask
+
+$_pip install flask-mysql
+__pip install requests
+pip install -r requirements.txt
+pip freeze 
+Para Windows cmd, use en setlugar de export:
+
+> set FLASK_APP=flaskr
+> set FLASK_ENV=development
+> flask run
+flask run --host=192.168.1.101
+Para Windows PowerShell, use en $env:lugar de export:
+
+> $env:FLASK_APP = "flaskr"
+> $env:FLASK_ENV = "development"
+> flask run
+..........................
+
+import  pymysql
+miConexion =  pymysql.connect( host='localhost', user= 'root', passwd='', db='flaskcontacts' )
+cur = miConexion.cursor()
+cur.execute( "SELECT fullname,phone FROM contacts" )
+for fullname,phone in cur.fetchall() :
+    print (fullname, phone)
+miConexion.close()
+
+------------------------
+activate root
+conda update -n root conda
+conda update --all
+
+pip uninstall pyzmq
+pip install pyzmq
+
+conda uninstall pyzmq and then conda install pyzmq.
+
+
+_________________________________
+::::::::::-- FLUTTER --:::::::::::
+- flutter create app
+- cd app
+- flutter run 
+
+::::::::::-- GO --:::::::::::
+go run hell.go
+
+::::::::::-- KOTLIN --:::::::::::
+kotlin::
+ > kotlinc code23.kt -include-runtime -d code34.jar
+ > java -jar code23.jar 
+ 
+::::::::::::::::::::::::::::::::::::
+------------------------------------
+wt -p "Command Prompt" `; split-pane -p "Windows PowerShell" `; split-pane -H wsl.exe
+
+
+
+
+===================================================================
+========================== LINUX ================================
+=================================================================
+sudo apt-get install python3-pip 
+sudo pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate # activate.fish
+deactivate
+-- otra opcion
+virtualenv -p python3 myenv
+python3 -m venv myenv
+
+--------------------------
+pip install -r requirements.txt
+
+!!@@@@|||.DJANGO.||||...@@@@
+python -m venv env 
+-activate
+-py -m pip install --upgrade pip 
+
+pip install django
+django-admin startproject blog
+cd blog
+python manage.py startapp polls
+
+
+CREATE DATABASE nombreDB CHARACTER SET utf8mb4;
+CREATE USER nombreusuario@localhost IDENTIFIED BY 'pass';
+GRANT ALL PRIVILEGES ON nombreDB.* TO nombreusuario@localhost;
+FLUSH PRIVILEGES;
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
+jkennedy-----@hackerPRISMA777
+}}}}}}}}}}}}}}}}
+pip install mysqlclient
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'nombreDB',
+            'USER': 'nombreusuario',
+            'PASSWORD': 'pass',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
+	
+	
+crear base de datos:::agregar la app en settings
+- py manage.py migrate 
+tablas.. ingresar datos en models, agregar import en admin 
+- py manage.py makemigrations
+- py manage.py migrate 
+
+===== django crear usuario::::::::::::
+python manage.py createsuperuser
+
+
+
+----------------------------------
+---------   kotlin ---------------
+----------------------------------
+kotlinc qwerty.kt -include-runtime -d hell0qwe.jar 
+java -jar .hell0qwe.jar 
+
+ 
+https://zoom.us/j/91695447274
+
+
